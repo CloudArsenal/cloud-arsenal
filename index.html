@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cloud Arsenal — Your Cloud Operations Toolkit</title>
+  <meta name="description" content="Cloud Arsenal — cloud operations console for AWS and Azure. Real-time resource scanning, multi-account support, AI-powered automation. Coming soon." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <!-- Favicon -->
+  <link rel="icon" type="image/jpeg" href="Cloud_Arsenal_logo.jpeg" />
+  <link rel="apple-touch-icon" href="Cloud_Arsenal_logo.jpeg" />
+  <!-- Open Graph (link previews) -->
+  <meta property="og:title"       content="Cloud Arsenal — Your Cloud Operations Toolkit" />
+  <meta property="og:description" content="Real-time resource scanning, multi-account visibility, and AI-powered automation for AWS and Azure." />
+  <meta property="og:image"       content="Cloud_Arsenal_logo.jpeg" />
+  <meta property="og:type"        content="website" />
+  <meta name="twitter:card"       content="summary" />
+  <meta name="twitter:image"      content="Cloud_Arsenal_logo.jpeg" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    /* ── THEME TOKENS ── */
+
+    [data-theme="light"] {
+      --bg:           #f5f7fb;
+      --surface:      #ffffff;
+      --surface-2:    #f0f3f9;
+      --border:       rgba(0,0,0,0.08);
+      --border-s:     rgba(0,0,0,0.05);
+      --text:         #0f172a;
+      --muted:        #64748b;
+      --aws:          #e08400;
+      --aws-b:        #FF9900;
+      --azure:        #0068b8;
+      --azure-b:      #0078D4;
+      --accent:       #4f46e5;
+      --accent-b:     #6366f1;
+      --nav-bg:       rgba(245,247,251,0.88);
+      --dot-color:    rgba(0,0,0,0.06);
+      --terminal-bg:  #0d1526;
+      --terminal-bar: #111e35;
+      --terminal-bdr: rgba(99,132,199,0.2);
+      --cs-bg:        linear-gradient(135deg, #1e1b4b 0%, #1e3a5f 100%);
+      --cs-text:      #ffffff;
+      --cs-sub:       #94a3b8;
+      --cs-dot:       rgba(255,255,255,0.06);
+      --cs-pill:      #a5b4fc;
+      --cs-pill-bdr:  rgba(165,180,252,0.25);
+      --cs-pill-bg:   rgba(165,180,252,0.08);
+      --cs-item-bg:   rgba(255,255,255,0.06);
+      --cs-item-bdr:  rgba(255,255,255,0.1);
+      --cs-item-text: #94a3b8;
+      --shadow-card:  0 1px 4px rgba(0,0,0,0.05);
+      --shadow-hover: 0 20px 50px rgba(79,70,229,0.1);
+      --footer-bg:    #ffffff;
+      --orb-display:  none;
+    }
+
+    [data-theme="navy"] {
+      --bg:           #080d1a;
+      --surface:      #0d1526;
+      --surface-2:    #111e35;
+      --border:       rgba(99,132,199,0.15);
+      --border-s:     rgba(99,132,199,0.08);
+      --text:         #e2e8f8;
+      --muted:        #5d7299;
+      --aws:          #FF9900;
+      --aws-b:        #ffcc70;
+      --azure:        #3b9eff;
+      --azure-b:      #6ab8ff;
+      --accent:       #7b8fff;
+      --accent-b:     #a5b4fc;
+      --nav-bg:       rgba(8,13,26,0.75);
+      --dot-color:    rgba(99,132,199,0.18);
+      --terminal-bg:  #0d1526;
+      --terminal-bar: #111e35;
+      --terminal-bdr: rgba(99,132,199,0.2);
+      --cs-bg:        #0d1526;
+      --cs-text:      #e2e8f8;
+      --cs-sub:       #5d7299;
+      --cs-dot:       rgba(255,255,255,0.03);
+      --cs-pill:      #7b8fff;
+      --cs-pill-bdr:  rgba(123,143,255,0.25);
+      --cs-pill-bg:   rgba(123,143,255,0.07);
+      --cs-item-bg:   rgba(255,255,255,0.03);
+      --cs-item-bdr:  rgba(99,132,199,0.15);
+      --cs-item-text: #5d7299;
+      --shadow-card:  none;
+      --shadow-hover: 0 24px 60px rgba(123,143,255,0.07);
+      --footer-bg:    transparent;
+      --orb-display:  block;
+    }
+
+    [data-theme="dark"] {
+      --bg:           #07080f;
+      --surface:      #0e1118;
+      --surface-2:    #12151f;
+      --border:       rgba(255,255,255,0.07);
+      --border-s:     rgba(255,255,255,0.04);
+      --text:         #e8eaf0;
+      --muted:        #6b7280;
+      --aws:          #FF9900;
+      --aws-b:        #ffb84d;
+      --azure:        #4da6ff;
+      --azure-b:      #0078D4;
+      --accent:       #7c6af7;
+      --accent-b:     #a78bfa;
+      --nav-bg:       rgba(7,8,15,0.8);
+      --dot-color:    rgba(255,255,255,0.025);
+      --terminal-bg:  #0e1118;
+      --terminal-bar: #12151f;
+      --terminal-bdr: rgba(255,255,255,0.07);
+      --cs-bg:        #0e1118;
+      --cs-text:      #e8eaf0;
+      --cs-sub:       #6b7280;
+      --cs-dot:       rgba(255,255,255,0.025);
+      --cs-pill:      #7c6af7;
+      --cs-pill-bdr:  rgba(124,106,247,0.3);
+      --cs-pill-bg:   rgba(124,106,247,0.06);
+      --cs-item-bg:   rgba(255,255,255,0.03);
+      --cs-item-bdr:  rgba(255,255,255,0.07);
+      --cs-item-text: #6b7280;
+      --shadow-card:  none;
+      --shadow-hover: 0 20px 60px rgba(124,106,247,0.08);
+      --footer-bg:    transparent;
+      --orb-display:  block;
+    }
+
+    /* ── BASE ── */
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+      overflow-x: hidden;
+      transition: background 0.35s ease, color 0.35s ease;
+    }
+
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image: radial-gradient(var(--dot-color) 1px, transparent 1px);
+      background-size: 38px 38px;
+      pointer-events: none; z-index: 0;
+      transition: opacity 0.35s ease;
+    }
+
+    /* ── ORBS (navy + dark only) ── */
+    .orb {
+      position: fixed; border-radius: 50%;
+      filter: blur(130px); pointer-events: none; z-index: 0; opacity: 0.5;
+      display: var(--orb-display);
+      transition: display 0s;
+    }
+    [data-theme="navy"] .orb-1 { width:700px;height:700px;top:-250px;left:-200px;background:rgba(123,143,255,0.18); }
+    [data-theme="navy"] .orb-2 { width:500px;height:500px;top:40%;right:-150px;background:rgba(59,158,255,0.12); }
+    [data-theme="navy"] .orb-3 { width:400px;height:400px;bottom:-100px;left:30%;background:rgba(255,153,0,0.12); }
+    [data-theme="dark"] .orb-1 { width:600px;height:600px;top:-200px;left:-150px;background:rgba(255,153,0,0.15); }
+    [data-theme="dark"] .orb-2 { width:500px;height:500px;top:30%;right:-150px;background:rgba(0,120,212,0.15); }
+    [data-theme="dark"] .orb-3 { width:400px;height:400px;bottom:0;left:40%;background:rgba(124,106,247,0.2); }
+
+    /* ── LAYOUT ── */
+    .container { max-width:1100px;margin:0 auto;padding:0 24px;position:relative;z-index:1; }
+
+    /* ── NAV ── */
+    nav {
+      position:fixed;top:0;left:0;right:0;z-index:100;
+      backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);
+      background:var(--nav-bg);
+      border-bottom:1px solid var(--border);
+      transition: background 0.35s ease, border-color 0.35s ease;
+    }
+    .nav-inner {
+      max-width:1100px;margin:0 auto;padding:0 24px;
+      height:64px;display:flex;align-items:center;justify-content:space-between;
+    }
+    .logo { display:flex;align-items:center;gap:10px;text-decoration:none; }
+    .logo-icon {
+      width:34px;height:34px;
+      border-radius:9px;overflow:hidden;
+      display:flex;align-items:center;justify-content:center;
+      box-shadow:0 2px 14px rgba(124,106,247,0.25);
+      flex-shrink:0;
+    }
+    .logo-icon img {
+      width:100%;height:100%;
+      object-fit:cover;
+      display:block;
+    }
+    .logo-text { font-size:17px;font-weight:600;color:var(--text);letter-spacing:-0.3px;transition:color 0.35s; }
+    .logo-text span { color:var(--accent);transition:color 0.35s; }
+
+    /* NAV RIGHT — badge + theme toggle */
+    .nav-right { display:flex;align-items:center;gap:14px; }
+    .nav-badge {
+      font-size:11px;font-weight:500;padding:4px 12px;border-radius:20px;
+      border:1px solid var(--border);color:var(--muted);background:var(--surface);
+      font-family:'JetBrains Mono',monospace;transition:all 0.35s;
+    }
+
+    /* Theme toggle */
+    .theme-toggle {
+      display:flex;align-items:center;gap:6px;
+      background:var(--surface);
+      border:1px solid var(--border);
+      border-radius:20px;padding:5px 8px;
+      transition:background 0.35s,border-color 0.35s;
+    }
+    .theme-toggle-label {
+      font-size:10px;font-family:'JetBrains Mono',monospace;
+      color:var(--muted);letter-spacing:0.05em;margin-right:2px;
+      transition:color 0.35s;
+    }
+    .swatch {
+      width:16px;height:16px;border-radius:50%;cursor:pointer;
+      border:2px solid transparent;
+      transition:border-color 0.2s,transform 0.2s;
+      position:relative;
+    }
+    .swatch:hover { transform:scale(1.2); }
+    .swatch.active { border-color:var(--accent); }
+    .swatch-light { background:linear-gradient(135deg,#f5f7fb,#e2e8f0); }
+    .swatch-navy  { background:linear-gradient(135deg,#080d1a,#0d1526); }
+    .swatch-dark  { background:linear-gradient(135deg,#07080f,#1a1a2e); }
+
+    /* ── HERO ── */
+    .hero { padding:160px 0 100px;text-align:center; }
+    .hero-eyebrow {
+      display:inline-flex;align-items:center;gap:8px;
+      font-family:'JetBrains Mono',monospace;font-size:12px;
+      color:var(--accent);letter-spacing:0.1em;text-transform:uppercase;
+      margin-bottom:28px;padding:6px 16px;
+      border:1px solid color-mix(in srgb, var(--accent) 30%, transparent);
+      border-radius:20px;
+      background:color-mix(in srgb, var(--accent) 7%, transparent);
+      transition:all 0.35s;
+    }
+    .hero-eyebrow::before { content:'◈';font-size:10px; }
+    h1 { font-size:clamp(40px,6vw,72px);font-weight:700;letter-spacing:-2.5px;line-height:1.05;margin-bottom:24px; }
+    h1 .grad-aws {
+      background:linear-gradient(90deg,var(--aws),var(--aws-b));
+      -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+    }
+    h1 .grad-az {
+      background:linear-gradient(90deg,var(--azure-b),var(--azure));
+      -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+    }
+    .hero-sub { font-size:18px;color:var(--muted);max-width:560px;margin:0 auto 48px;transition:color 0.35s; }
+    .hero-cta { display:inline-flex;gap:14px;flex-wrap:wrap;justify-content:center; }
+    .btn {
+      display:inline-flex;align-items:center;gap:8px;
+      padding:13px 26px;border-radius:10px;
+      font-size:15px;font-weight:500;text-decoration:none;
+      transition:all 0.2s ease;cursor:pointer;border:none;font-family:'Inter',sans-serif;
+    }
+    .btn-primary { background:var(--accent);color:#fff;box-shadow:0 4px 20px color-mix(in srgb,var(--accent) 40%,transparent); }
+    .btn-primary:hover { transform:translateY(-2px);filter:brightness(1.1);box-shadow:0 8px 30px color-mix(in srgb,var(--accent) 50%,transparent); }
+    .btn-outline { background:var(--surface);color:var(--text);border:1px solid var(--border);box-shadow:var(--shadow-card); }
+    .btn-outline:hover { background:var(--surface-2);transform:translateY(-2px); }
+
+    /* ── TERMINAL ── */
+    .terminal-strip {
+      margin:60px 0 0;
+      background:var(--terminal-bg);
+      border:1px solid var(--terminal-bdr);
+      border-radius:14px;overflow:hidden;
+      box-shadow:0 32px 80px rgba(0,0,0,0.22),0 0 0 1px rgba(0,0,0,0.06);
+      transition:background 0.35s,border-color 0.35s;
+    }
+    .terminal-bar {
+      display:flex;align-items:center;gap:8px;padding:12px 16px;
+      background:var(--terminal-bar);border-bottom:1px solid var(--terminal-bdr);
+      transition:background 0.35s;
+    }
+    .dot { width:12px;height:12px;border-radius:50%; }
+    .dot-r{background:#ff5f57;} .dot-y{background:#febc2e;} .dot-g{background:#28c840;}
+    .terminal-body { padding:24px 28px;font-family:'JetBrains Mono',monospace;font-size:13px;line-height:2.1;text-align:left; }
+    .t-prompt{color:#818cf8;} .t-cmd{color:#c8d6f5;} .t-aws{color:#FF9900;} .t-az{color:#3b9eff;} .t-ok{color:#28c840;} .t-dim{color:#5d7299;}
+    .t-cursor { display:inline-block;width:8px;height:14px;background:#818cf8;margin-left:4px;vertical-align:middle;animation:blink 1.1s step-end infinite; }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+
+    /* ── SECTIONS ── */
+    .section { padding:90px 0; }
+    .section-label { font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--accent);letter-spacing:0.15em;text-transform:uppercase;margin-bottom:14px;transition:color 0.35s; }
+    .section-title { font-size:clamp(28px,4vw,42px);font-weight:700;letter-spacing:-1.2px;margin-bottom:14px; }
+    .section-sub { color:var(--muted);font-size:16px;max-width:520px;transition:color 0.35s; }
+    .divider { border:none;border-top:1px solid var(--border);margin:0;transition:border-color 0.35s; }
+
+    /* ── CARDS ── */
+    .cards { display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:48px; }
+    @media(max-width:680px){ .cards{grid-template-columns:1fr;} }
+    .card {
+      background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:34px;
+      position:relative;overflow:hidden;box-shadow:var(--shadow-card);
+      transition:transform 0.25s ease,border-color 0.25s ease,box-shadow 0.25s ease,background 0.35s;
+    }
+    .card:hover { transform:translateY(-5px);box-shadow:var(--shadow-hover); }
+    .card::before { content:'';position:absolute;top:0;left:0;right:0;height:3px; }
+    .card-aws::before { background:linear-gradient(90deg,var(--aws),var(--aws-b)); }
+    .card-az::before  { background:linear-gradient(90deg,var(--azure-b),var(--azure)); }
+    .card-aws:hover { border-color:color-mix(in srgb,var(--aws) 30%,transparent); }
+    .card-az:hover  { border-color:color-mix(in srgb,var(--azure) 30%,transparent); }
+    .card-logo { width:50px;height:50px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;margin-bottom:20px; }
+    .card-aws .card-logo { background:color-mix(in srgb,var(--aws) 12%,transparent);border:1px solid color-mix(in srgb,var(--aws) 20%,transparent); }
+    .card-az  .card-logo { background:color-mix(in srgb,var(--azure) 12%,transparent);border:1px solid color-mix(in srgb,var(--azure) 20%,transparent); }
+    .card h3 { font-size:20px;font-weight:600;letter-spacing:-0.4px;margin-bottom:10px;color:var(--text);transition:color 0.35s; }
+    .card p  { color:var(--muted);font-size:14px;line-height:1.75;margin-bottom:20px;transition:color 0.35s; }
+    .feature-list { list-style:none;display:flex;flex-direction:column;gap:9px; }
+    .feature-list li { font-size:13px;color:var(--muted);display:flex;align-items:flex-start;gap:8px;transition:color 0.35s; }
+    .feature-list li::before { content:'→';font-family:'JetBrains Mono',monospace;font-size:11px;margin-top:2px;flex-shrink:0; }
+    .card-aws .feature-list li::before { color:var(--aws); }
+    .card-az  .feature-list li::before { color:var(--azure); }
+    .card-badge { display:inline-flex;margin-top:24px;font-size:11px;font-weight:500;padding:4px 12px;border-radius:20px;font-family:'JetBrains Mono',monospace; }
+    .badge-aws { background:color-mix(in srgb,var(--aws) 10%,transparent);color:var(--aws);border:1px solid color-mix(in srgb,var(--aws) 22%,transparent); }
+    .badge-az  { background:color-mix(in srgb,var(--azure) 10%,transparent);color:var(--azure);border:1px solid color-mix(in srgb,var(--azure) 22%,transparent); }
+
+    /* ── COMING SOON ── */
+    .coming-soon {
+      background:var(--cs-bg);border-radius:20px;padding:70px 48px;
+      text-align:center;position:relative;overflow:hidden;
+      box-shadow:0 32px 80px rgba(0,0,0,0.15);
+      transition:background 0.35s;
+    }
+    .coming-soon::before {
+      content:'';position:absolute;inset:0;
+      background-image:radial-gradient(var(--cs-dot) 1px,transparent 1px);
+      background-size:36px 36px;pointer-events:none;
+    }
+    /* top shimmer line — only on dark/navy */
+    .coming-soon::after {
+      content:'';position:absolute;top:-1px;left:15%;right:15%;height:1px;
+      background:linear-gradient(90deg,transparent,var(--cs-pill),transparent);
+      opacity:0.5;
+    }
+    .coming-soon > * { position:relative;z-index:1; }
+    .cs-pill {
+      display:inline-flex;align-items:center;gap:8px;
+      font-family:'JetBrains Mono',monospace;font-size:12px;
+      color:var(--cs-pill);padding:6px 16px;
+      border:1px solid var(--cs-pill-bdr);border-radius:20px;
+      background:var(--cs-pill-bg);margin-bottom:24px;transition:all 0.35s;
+    }
+    .cs-pill::before { content:'●';animation:blink 1.5s ease-in-out infinite;font-size:8px; }
+    .coming-soon h2 { font-size:clamp(28px,4vw,44px);font-weight:700;letter-spacing:-1.5px;margin-bottom:16px;color:var(--cs-text);transition:color 0.35s; }
+    .coming-soon p  { color:var(--cs-sub);max-width:480px;margin:0 auto;font-size:15px;transition:color 0.35s; }
+    .roadmap { display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:36px; }
+    .rm-item { display:flex;align-items:center;gap:8px;font-size:13px;padding:8px 16px;background:var(--cs-item-bg);border:1px solid var(--cs-item-bdr);border-radius:8px;color:var(--cs-item-text);transition:all 0.35s; }
+    .rm-dot { width:8px;height:8px;border-radius:50%; }
+    .rm-dot.done  { background:#28c840;box-shadow:0 0 8px #28c840; }
+    .rm-dot.wip   { background:var(--aws);box-shadow:0 0 8px var(--aws);animation:blink 2s ease-in-out infinite; }
+    .rm-dot.soon  { background:var(--azure);box-shadow:0 0 8px var(--azure); }
+    .rm-dot.later { background:#475569; }
+
+    /* ── CONTACT ── */
+    .contact-section { display:grid;grid-template-columns:1fr 1fr;gap:20px; }
+    @media(max-width:680px){ .contact-section{grid-template-columns:1fr;} }
+    .contact-card {
+      background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:36px;
+      box-shadow:var(--shadow-card);
+      transition:transform 0.2s ease,box-shadow 0.2s ease,background 0.35s,border-color 0.35s;
+    }
+    .contact-card:hover { transform:translateY(-4px);box-shadow:var(--shadow-hover); }
+    .contact-card h3 { font-size:18px;font-weight:600;margin-bottom:10px;letter-spacing:-0.3px;color:var(--text);transition:color 0.35s; }
+    .contact-card p  { color:var(--muted);font-size:14px;line-height:1.75;margin-bottom:20px;transition:color 0.35s; }
+    .contact-link {
+      display:inline-flex;align-items:center;gap:8px;
+      color:var(--accent);text-decoration:none;font-size:14px;font-weight:500;
+      padding:10px 18px;
+      border:1px solid color-mix(in srgb,var(--accent) 25%,transparent);border-radius:8px;
+      background:color-mix(in srgb,var(--accent) 7%,transparent);transition:all 0.2s;
+    }
+    .contact-link:hover { background:color-mix(in srgb,var(--accent) 14%,transparent);transform:translateX(4px); }
+
+    /* ── FOOTER ── */
+    footer { border-top:1px solid var(--border);padding:32px 0;background:var(--footer-bg);position:relative;z-index:1;transition:background 0.35s,border-color 0.35s; }
+    .footer-inner { max-width:1100px;margin:0 auto;padding:0 24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px; }
+    .footer-left { font-size:13px;color:var(--muted);transition:color 0.35s; }
+    .footer-left a { color:var(--muted);text-decoration:none;transition:color 0.2s; }
+    .footer-left a:hover { color:var(--text); }
+    .footer-right { display:flex;align-items:center;gap:7px;font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--muted);transition:color 0.35s; }
+    .status-dot { width:7px;height:7px;border-radius:50%;background:#28c840;box-shadow:0 0 8px #28c840;animation:blink 2s ease-in-out infinite; }
+
+    /* ── ANIMATIONS ── */
+    .fade-up { opacity:0;transform:translateY(24px);animation:fadeUp 0.7s ease forwards; }
+    @keyframes fadeUp { to{opacity:1;transform:translateY(0);} }
+    .delay-1{animation-delay:0.1s;} .delay-2{animation-delay:0.2s;}
+    .delay-3{animation-delay:0.3s;} .delay-4{animation-delay:0.45s;}
+
+    @media(max-width:500px){
+      .theme-toggle-label{display:none;}
+      .nav-badge{display:none;}
+    }
+  </style>
+</head>
+<body>
+
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-inner">
+      <a class="logo" href="#">
+        <div class="logo-icon"><img src="Cloud_Arsenal_logo.jpeg" alt="Cloud Arsenal" /></div>
+        <span class="logo-text">Cloud<span>Arsenal</span></span>
+      </a>
+      <div class="nav-right">
+        <span class="nav-badge">coming soon</span>
+        <div class="theme-toggle" title="Switch theme">
+          <span class="theme-toggle-label">theme</span>
+          <span class="swatch swatch-light active" data-theme="light" title="Light"></span>
+          <span class="swatch swatch-navy"         data-theme="navy"  title="Navy"></span>
+          <span class="swatch swatch-dark"         data-theme="dark"  title="Dark"></span>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-eyebrow fade-up">Cloud Arsenal</div>
+      <h1 class="fade-up delay-1">
+        One console.<br/>
+        <span class="grad-aws">AWS.</span>
+        <span class="grad-az"> Azure.</span>
+      </h1>
+      <p class="hero-sub fade-up delay-2">
+        Real-time resource scanning, multi-account visibility, and AI-powered automation —
+        without touching the CLI.
+      </p>
+      <div class="hero-cta fade-up delay-3">
+        <a href="mailto:isolated.old.soul@gmail.com?subject=Cloud Arsenal — Collaboration" class="btn btn-primary">✉ Get in Touch</a>
+        <a href="https://github.com/isolatedoldsoul" class="btn btn-outline" target="_blank" rel="noopener">⌥ GitHub</a>
+      </div>
+      <div class="terminal-strip fade-up delay-4">
+        <div class="terminal-bar">
+          <span class="dot dot-r"></span><span class="dot dot-y"></span><span class="dot dot-g"></span>
+        </div>
+        <div class="terminal-body">
+          <div><span class="t-prompt">›</span> <span class="t-cmd">cloud-arsenal scan --cloud aws --accounts all --scanner kms_zombie</span></div>
+          <div><span class="t-aws">✔ AWS</span>&nbsp;&nbsp;<span class="t-dim">Scanning 12 accounts across us-east-1, eu-west-1...</span></div>
+          <div><span class="t-aws">✔ AWS</span>&nbsp;&nbsp;<span class="t-dim">Found 8 zombie KMS keys — estimated waste: $120/month</span></div>
+          <div><span class="t-prompt">›</span> <span class="t-cmd">cloud-arsenal scan --cloud azure --subscriptions all --scanner orphaned_disks</span></div>
+          <div><span class="t-az">✔ Azure</span> <span class="t-dim">Scanning 4 subscriptions — East US, UK South...</span></div>
+          <div><span class="t-az">✔ Azure</span> <span class="t-dim">Found 14 orphaned disks — estimated waste: £340/month</span></div>
+          <div><span class="t-ok">✔ Done</span> <span class="t-dim">Report exported to report.xlsx</span> <span class="t-cursor"></span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- PRODUCTS -->
+  <section class="section">
+    <div class="container">
+      <div class="section-label">What We're Building</div>
+      <h2 class="section-title">Two clouds. One toolkit.</h2>
+      <p class="section-sub">Each console runs standalone. They share the same philosophy — plugin-based, real-time, browser-native.</p>
+      <div class="cards">
+        <div class="card card-aws">
+          <div class="card-logo">🟠</div>
+          <h3>AWS CloudOps Console</h3>
+          <p>Scan your entire AWS Organization in real time. Multi-account support, SSO authentication, and a plugin scanner system you can extend with your own scripts.</p>
+          <ul class="feature-list">
+            <li>Multi-account scanning via AWS SSO or IAM</li>
+            <li>Live log streaming — see every account as it scans</li>
+            <li>Plugin scanners: KMS, EC2, ALB, Cost Explorer</li>
+            <li>Excel / CSV export + optional S3 scan history</li>
+            <li>One command deploy: docker-compose up</li>
+          </ul>
+          <span class="card-badge badge-aws">In Development</span>
+        </div>
+        <div class="card card-az">
+          <div class="card-logo">🔵</div>
+          <h3>Azure CloudOps Console</h3>
+          <p>Scan all your Azure subscriptions from a single browser session. Entra ID device flow or Service Principal auth — no CLI, no PowerShell required.</p>
+          <ul class="feature-list">
+            <li>Multi-subscription scanning via Entra ID or SP</li>
+            <li>Auto-discover subscriptions from your tenant</li>
+            <li>Plugin scanners: orphaned disks, NICs, idle VMs</li>
+            <li>Excel / CSV export + optional Blob Storage history</li>
+            <li>One command deploy: docker-compose up</li>
+          </ul>
+          <span class="card-badge badge-az">Coming Soon</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- COMING SOON -->
+  <section class="section">
+    <div class="container">
+      <div class="coming-soon">
+        <div class="cs-pill">In Active Development</div>
+        <h2>Launching on GitHub — Free &amp; Open Source</h2>
+        <p>Both consoles will be MIT licensed. Drop in a scanner script, run docker-compose up, and your team is operational in minutes.</p>
+        <div class="roadmap">
+          <div class="rm-item"><span class="rm-dot done"></span> Architecture &amp; Design</div>
+          <div class="rm-item"><span class="rm-dot wip"></span> AWS Console — Building</div>
+          <div class="rm-item"><span class="rm-dot soon"></span> Azure Console — Planned</div>
+          <div class="rm-item"><span class="rm-dot later"></span> AI Chat Interface</div>
+          <div class="rm-item"><span class="rm-dot later"></span> Multi-Cloud Unified View</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- CONTACT -->
+  <section class="section">
+    <div class="container">
+      <div class="section-label">Get in Touch</div>
+      <h2 class="section-title" style="margin-bottom:40px;">Interested? Let's talk.</h2>
+      <div class="contact-section">
+        <div class="contact-card">
+          <h3>💼 Acquire this Domain</h3>
+          <p>cloud-arsenal.com is available for acquisition. If you're building in the cloud operations or DevOps space and see the value in this brand, reach out and let's have a conversation.</p>
+          <a href="mailto:isolated.old.soul@gmail.com?subject=cloud-arsenal.com — Domain Acquisition" class="contact-link">✉ Email Us →</a>
+        </div>
+        <div class="contact-card">
+          <h3>🤝 Collaborate</h3>
+          <p>Building something in the cloud operations, FinOps, or DevOps space? We're open to partnerships, integrations, and co-building ideas. Cloud expertise across AWS and Azure.</p>
+          <a href="mailto:isolated.old.soul@gmail.com?subject=Cloud Arsenal — Collaboration Idea" class="contact-link">✉ Pitch an Idea →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <span class="footer-left">
+        © 2026 Cloud Arsenal &nbsp;·&nbsp;
+        <a href="https://github.com/isolatedoldsoul" target="_blank" rel="noopener">GitHub</a>
+        &nbsp;·&nbsp;
+        <a href="mailto:isolated.old.soul@gmail.com">isolated.old.soul@gmail.com</a>
+      </span>
+      <span class="footer-right"><span class="status-dot"></span> Building in public</span>
+    </div>
+  </footer>
+
+  <script>
+    const root     = document.documentElement;
+    const swatches = document.querySelectorAll('.swatch');
+
+    // Restore saved theme
+    const saved = localStorage.getItem('ca-theme') || 'light';
+    applyTheme(saved);
+
+    swatches.forEach(s => {
+      s.addEventListener('click', () => {
+        const t = s.dataset.theme;
+        applyTheme(t);
+        localStorage.setItem('ca-theme', t);
+      });
+    });
+
+    function applyTheme(t) {
+      root.setAttribute('data-theme', t);
+      swatches.forEach(s => s.classList.toggle('active', s.dataset.theme === t));
+    }
+  </script>
+
+</body>
+</html>
