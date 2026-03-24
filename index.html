@@ -295,9 +295,9 @@
     .divider { border:none;border-top:1px solid var(--border);margin:0;transition:border-color 0.35s; }
 
     /* ── CARDS ── */
-    .cards { display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px;margin-top:48px; }
-    @media(max-width:900px){ .cards{grid-template-columns:1fr 1fr;} }
-    @media(max-width:600px){ .cards{grid-template-columns:1fr;} }
+    .cards { display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:48px; }
+    .cards-single { display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:48px; }
+    @media(max-width:680px){ .cards{grid-template-columns:1fr;} .cards-single{grid-template-columns:1fr;} }
     .card {
       background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:34px;
       position:relative;overflow:hidden;box-shadow:var(--shadow-card);
@@ -467,12 +467,12 @@
 
   <hr class="divider" />
 
-  <!-- PRODUCTS -->
+  <!-- CLOUD CONSOLES -->
   <section class="section">
     <div class="container">
-      <div class="section-label">What We're Building</div>
-      <h2 class="section-title">Two clouds. One toolkit.</h2>
-      <p class="section-sub">Consoles, remote labs, and infrastructure toolkits for AWS and Azure. Plugin-based, self-hostable, browser-native.</p>
+      <div class="section-label">Cloud Consoles</div>
+      <h2 class="section-title">See everything. Fix faster.</h2>
+      <p class="section-sub">Browser-native consoles for AWS and Azure. Real-time scanning, multi-account support, plugin scanners — one command to deploy.</p>
       <div class="cards">
         <div class="card card-aws">
           <div class="card-logo">🟠</div>
@@ -500,6 +500,19 @@
           </ul>
           <span class="card-badge badge-az">In Development</span>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- TOOLKITS -->
+  <section class="section">
+    <div class="container">
+      <div class="section-label">Infrastructure Toolkits</div>
+      <h2 class="section-title">Deploy. Automate. Repeat.</h2>
+      <p class="section-sub">Terraform + Python toolkits for provisioning and operating cloud infrastructure. One tfvars file per environment to replicate.</p>
+      <div class="cards-single">
         <div class="card card-ws">
           <div class="card-logo">🖥️</div>
           <h3>AWS WorkSpaces Applications</h3>
