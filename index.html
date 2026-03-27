@@ -299,9 +299,8 @@
     .divider { border:none;border-top:1px solid var(--border);margin:0;transition:border-color 0.35s; }
 
     /* ── CARDS ── */
-    .cards { display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px;margin-top:48px; }
+    .cards { display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:48px; }
     .cards-single { display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:48px; }
-    @media(max-width:900px){ .cards{grid-template-columns:1fr 1fr;} }
     @media(max-width:680px){ .cards{grid-template-columns:1fr;} .cards-single{grid-template-columns:1fr;} }
     .card {
       background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:34px;
@@ -497,19 +496,6 @@
           </ul>
           <a href="https://github.com/CloudArsenal/aws-arsenal" target="_blank" rel="noopener" class="card-badge badge-aws" style="text-decoration:none;">↗ Live on GitHub</a>
         </div>
-        <div class="card card-scan">
-          <div class="card-logo">🔍</div>
-          <h3>AWS Account Scanner</h3>
-          <p>Full inventory scan across 24+ AWS services in parallel. CE-driven discovery, deep scans, EOL reporting, and cost analysis — all in one HTML or XLSX report.</p>
-          <ul class="feature-list">
-            <li>24+ services: EC2, RDS, S3, Lambda, EKS, IAM...</li>
-            <li>CE-driven — only scans services you actually use</li>
-            <li>Deep scans: OS/EOL, S3 content, ALB health, CW logs</li>
-            <li>Multi-account org sweep via SSO</li>
-            <li>HTML + XLSX reports with live API call count</li>
-          </ul>
-          <a href="https://github.com/CloudArsenal/aws-account-scanner" target="_blank" rel="noopener" class="card-badge badge-scan" style="text-decoration:none;">↗ Live on GitHub</a>
-        </div>
         <div class="card card-az">
           <div class="card-logo">🔵</div>
           <h3>Azure CloudOps Console</h3>
@@ -548,6 +534,19 @@
             <li>One tfvars file per customer to replicate</li>
           </ul>
           <a href="https://github.com/CloudArsenal/aws-workspaces-applications" target="_blank" rel="noopener" class="card-badge badge-ws" style="text-decoration:none;">↗ Live on GitHub</a>
+        </div>
+        <div class="card card-scan">
+          <div class="card-logo">🔍</div>
+          <h3>AWS Account Scanner</h3>
+          <p>Full inventory scan across 24+ AWS services in parallel. CE-driven discovery, deep scans, EOL reporting, and cost analysis — all in one HTML or XLSX report.</p>
+          <ul class="feature-list">
+            <li>24+ services: EC2, RDS, S3, Lambda, EKS, IAM...</li>
+            <li>CE-driven — only scans services you actually use</li>
+            <li>Deep scans: OS/EOL, S3 content, ALB health, CW logs</li>
+            <li>Multi-account org sweep via SSO</li>
+            <li>HTML + XLSX reports with live API call count</li>
+          </ul>
+          <a href="https://github.com/CloudArsenal/aws-account-scanner" target="_blank" rel="noopener" class="card-badge badge-scan" style="text-decoration:none;">↗ Live on GitHub</a>
         </div>
       </div>
     </div>
