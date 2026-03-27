@@ -38,6 +38,8 @@
       --azure-b:      #0078D4;
       --ws:           #0d9488;
       --ws-b:         #0891b2;
+      --scan:         #7c3aed;
+      --scan-b:       #a78bfa;
       --accent:       #4f46e5;
       --accent-b:     #6366f1;
       --nav-bg:       rgba(245,247,251,0.88);
@@ -110,6 +112,8 @@
       --azure-b:      #0078D4;
       --ws:           #14b8a6;
       --ws-b:         #22d3ee;
+      --scan:         #a78bfa;
+      --scan-b:       #c4b5fd;
       --accent:       #7c6af7;
       --accent-b:     #a78bfa;
       --nav-bg:       rgba(7,8,15,0.8);
@@ -295,8 +299,9 @@
     .divider { border:none;border-top:1px solid var(--border);margin:0;transition:border-color 0.35s; }
 
     /* ── CARDS ── */
-    .cards { display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:48px; }
+    .cards { display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px;margin-top:48px; }
     .cards-single { display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:48px; }
+    @media(max-width:900px){ .cards{grid-template-columns:1fr 1fr;} }
     @media(max-width:680px){ .cards{grid-template-columns:1fr;} .cards-single{grid-template-columns:1fr;} }
     .card {
       background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:34px;
@@ -305,28 +310,33 @@
     }
     .card:hover { transform:translateY(-5px);box-shadow:var(--shadow-hover); }
     .card::before { content:'';position:absolute;top:0;left:0;right:0;height:3px; }
-    .card-aws::before { background:linear-gradient(90deg,var(--aws),var(--aws-b)); }
-    .card-az::before  { background:linear-gradient(90deg,var(--azure-b),var(--azure)); }
-    .card-ws::before  { background:linear-gradient(90deg,var(--ws),var(--ws-b)); }
-    .card-aws:hover { border-color:color-mix(in srgb,var(--aws) 30%,transparent); }
-    .card-az:hover  { border-color:color-mix(in srgb,var(--azure) 30%,transparent); }
-    .card-ws:hover  { border-color:color-mix(in srgb,var(--ws) 30%,transparent); }
+    .card-aws::before  { background:linear-gradient(90deg,var(--aws),var(--aws-b)); }
+    .card-az::before   { background:linear-gradient(90deg,var(--azure-b),var(--azure)); }
+    .card-ws::before   { background:linear-gradient(90deg,var(--ws),var(--ws-b)); }
+    .card-scan::before { background:linear-gradient(90deg,var(--scan),var(--scan-b)); }
+    .card-aws:hover  { border-color:color-mix(in srgb,var(--aws) 30%,transparent); }
+    .card-az:hover   { border-color:color-mix(in srgb,var(--azure) 30%,transparent); }
+    .card-ws:hover   { border-color:color-mix(in srgb,var(--ws) 30%,transparent); }
+    .card-scan:hover { border-color:color-mix(in srgb,var(--scan) 30%,transparent); }
     .card-logo { width:50px;height:50px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;margin-bottom:20px; }
-    .card-aws .card-logo { background:color-mix(in srgb,var(--aws) 12%,transparent);border:1px solid color-mix(in srgb,var(--aws) 20%,transparent); }
-    .card-az  .card-logo { background:color-mix(in srgb,var(--azure) 12%,transparent);border:1px solid color-mix(in srgb,var(--azure) 20%,transparent); }
-    .card-ws  .card-logo { background:color-mix(in srgb,var(--ws) 12%,transparent);border:1px solid color-mix(in srgb,var(--ws) 20%,transparent); }
+    .card-aws  .card-logo { background:color-mix(in srgb,var(--aws) 12%,transparent);border:1px solid color-mix(in srgb,var(--aws) 20%,transparent); }
+    .card-az   .card-logo { background:color-mix(in srgb,var(--azure) 12%,transparent);border:1px solid color-mix(in srgb,var(--azure) 20%,transparent); }
+    .card-ws   .card-logo { background:color-mix(in srgb,var(--ws) 12%,transparent);border:1px solid color-mix(in srgb,var(--ws) 20%,transparent); }
+    .card-scan .card-logo { background:color-mix(in srgb,var(--scan) 12%,transparent);border:1px solid color-mix(in srgb,var(--scan) 20%,transparent); }
     .card h3 { font-size:20px;font-weight:600;letter-spacing:-0.4px;margin-bottom:10px;color:var(--text);transition:color 0.35s; }
     .card p  { color:var(--muted);font-size:14px;line-height:1.75;margin-bottom:20px;transition:color 0.35s; }
     .feature-list { list-style:none;display:flex;flex-direction:column;gap:9px; }
     .feature-list li { font-size:13px;color:var(--muted);display:flex;align-items:flex-start;gap:8px;transition:color 0.35s; }
     .feature-list li::before { content:'→';font-family:'JetBrains Mono',monospace;font-size:11px;margin-top:2px;flex-shrink:0; }
-    .card-aws .feature-list li::before { color:var(--aws); }
-    .card-az  .feature-list li::before { color:var(--azure); }
-    .card-ws  .feature-list li::before { color:var(--ws); }
+    .card-aws  .feature-list li::before { color:var(--aws); }
+    .card-az   .feature-list li::before { color:var(--azure); }
+    .card-ws   .feature-list li::before { color:var(--ws); }
+    .card-scan .feature-list li::before { color:var(--scan); }
     .card-badge { display:inline-flex;margin-top:24px;font-size:11px;font-weight:500;padding:4px 12px;border-radius:20px;font-family:'JetBrains Mono',monospace; }
-    .badge-aws { background:color-mix(in srgb,var(--aws) 10%,transparent);color:var(--aws);border:1px solid color-mix(in srgb,var(--aws) 22%,transparent); }
-    .badge-az  { background:color-mix(in srgb,var(--azure) 10%,transparent);color:var(--azure);border:1px solid color-mix(in srgb,var(--azure) 22%,transparent); }
-    .badge-ws  { background:color-mix(in srgb,var(--ws) 10%,transparent);color:var(--ws);border:1px solid color-mix(in srgb,var(--ws) 22%,transparent); }
+    .badge-aws  { background:color-mix(in srgb,var(--aws) 10%,transparent);color:var(--aws);border:1px solid color-mix(in srgb,var(--aws) 22%,transparent); }
+    .badge-az   { background:color-mix(in srgb,var(--azure) 10%,transparent);color:var(--azure);border:1px solid color-mix(in srgb,var(--azure) 22%,transparent); }
+    .badge-ws   { background:color-mix(in srgb,var(--ws) 10%,transparent);color:var(--ws);border:1px solid color-mix(in srgb,var(--ws) 22%,transparent); }
+    .badge-scan { background:color-mix(in srgb,var(--scan) 10%,transparent);color:var(--scan);border:1px solid color-mix(in srgb,var(--scan) 22%,transparent); }
 
     /* ── COMING SOON ── */
     .coming-soon {
@@ -486,6 +496,19 @@
             <li>One command deploy: docker-compose up</li>
           </ul>
           <a href="https://github.com/CloudArsenal/aws-arsenal" target="_blank" rel="noopener" class="card-badge badge-aws" style="text-decoration:none;">↗ Live on GitHub</a>
+        </div>
+        <div class="card card-scan">
+          <div class="card-logo">🔍</div>
+          <h3>AWS Account Scanner</h3>
+          <p>Full inventory scan across 24+ AWS services in parallel. CE-driven discovery, deep scans, EOL reporting, and cost analysis — all in one HTML or XLSX report.</p>
+          <ul class="feature-list">
+            <li>24+ services: EC2, RDS, S3, Lambda, EKS, IAM...</li>
+            <li>CE-driven — only scans services you actually use</li>
+            <li>Deep scans: OS/EOL, S3 content, ALB health, CW logs</li>
+            <li>Multi-account org sweep via SSO</li>
+            <li>HTML + XLSX reports with live API call count</li>
+          </ul>
+          <a href="https://github.com/CloudArsenal/aws-account-scanner" target="_blank" rel="noopener" class="card-badge badge-scan" style="text-decoration:none;">↗ Live on GitHub</a>
         </div>
         <div class="card card-az">
           <div class="card-logo">🔵</div>
